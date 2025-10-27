@@ -36,6 +36,15 @@ class ExpiringSet:
         return len(self._set)
 
 
+    def __repr__(self):
+        """Human readable version. We could just ignore expired items,
+        but we might as well clean them up here.
+        """
+        self._cleanup()
+
+        return f'/{', '.join(self._set.keys())}/'
+        
+        
     def _cleanup(self):
         """Delete expired keys."""
         timestamp = time.time() # get current time
